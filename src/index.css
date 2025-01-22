@@ -192,7 +192,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .filters__button:hover {
