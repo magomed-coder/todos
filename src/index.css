@@ -1,0 +1,240 @@
+:root {
+  --color-background: #f5f5f5;
+  --color-text: #5d5d5d;
+  --color-title: #eadcdb;
+  --color-border: #f5f5f5;
+  --color-hover: #d3b9b7;
+  --color-active: #eadcdb;
+  --color-checkbox-hover: #80c4b4;
+
+  --font-family: "Helvetica Neue", Roboto, Arial, sans-serif;
+  --font-size-base: 1em;
+  --font-size-large: 90px;
+  --font-size-medium: 24px;
+  --font-weight-light: 100;
+  --font-weight-regular: 200;
+
+  --spacing-small: 5px;
+  --spacing-medium: 10px;
+  --spacing-large: 15px;
+
+  --transition-duration: 0.25s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  border-radius: 4px;
+  border: 2px solid transparent;
+  padding: 0.4em 0.6em;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-light);
+  font-family: inherit;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color var(--transition-duration);
+}
+
+button:hover {
+  border-color: var(--color-hover);
+}
+
+.todos {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.todo_padding {
+  padding: var(--spacing-large);
+}
+
+.todos__title {
+  color: var(--color-title);
+  text-align: center;
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-large);
+}
+
+.todos__container {
+  background-color: #fefefe;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.todos__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-medium) 20px;
+}
+
+.todos__count {
+  font-family: inherit;
+  min-width: 20%;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-light);
+}
+
+.task-form {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-medium);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.task-form__add {
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+  display: flex;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+
+.task-form__add:hover svg {
+  fill: var(--color-hover);
+}
+
+.task-form__input {
+  background: none;
+  color: var(--color-text);
+  border: none;
+  padding: 5px 8px;
+  display: block;
+  width: 100%;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-regular);
+}
+
+.task-form__input::placeholder {
+  font-style: italic;
+}
+
+.todos_list {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-medium);
+  min-height: 60px;
+  border-bottom: 2px solid var(--color-border);
+
+  animation: fadeIn 0.3s ease-out;
+}
+
+.todo-item.fade-out {
+  animation: fadeOut 0.3s ease-in;
+}
+
+.todo-text,
+.todo-text form,
+.todo-text input {
+  border: none;
+  flex-grow: 1;
+  width: 100%;
+  outline: none;
+}
+
+.todo-text,
+.todo-text input {
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-regular);
+}
+
+.todo-item__delete {
+  background: none;
+  border: none;
+  display: flex;
+  cursor: pointer;
+}
+
+.todo-item__delete svg {
+  height: 14px;
+}
+
+.empty-list {
+  text-align: center;
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-regular);
+  padding: var(--spacing-large);
+  min-height: 61px;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-small);
+}
+
+.filters__button:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: var(--color-hover);
+}
+
+.filters__button--active {
+  font-weight: var(--font-weight-regular);
+  border-color: var(--color-active);
+}
+
+.todo-item__checkbox {
+  display: flex;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  border: 1px solid #d5e5e2;
+  cursor: pointer;
+}
+
+.todo-item__checkbox:hover,
+.todo-item__checkbox.checked {
+  border: 1px solid var(--color-checkbox-hover);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
