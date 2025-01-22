@@ -6,33 +6,22 @@ interface FiltersProps {
   setFilter: (filter: ToDoStatus) => void;
 }
 
+const FILTERS: ToDoStatus[] = ["all", "completed", "active"];
+
 export const Filters: React.FC<FiltersProps> = ({ filter, setFilter }) => {
   return (
     <div className="filters">
-      <button
-        onClick={() => setFilter("all")}
-        className={`filters__button ${
-          filter === "all" ? "filters__button--active" : ""
-        }`}
-      >
-        All
-      </button>
-      <button
-        onClick={() => setFilter("completed")}
-        className={`filters__button ${
-          filter === "completed" ? "filters__button--active" : ""
-        }`}
-      >
-        Completed
-      </button>
-      <button
-        onClick={() => setFilter("active")}
-        className={`filters__button ${
-          filter === "active" ? "filters__button--active" : ""
-        }`}
-      >
-        Active
-      </button>
+      {FILTERS.map((currentFilter) => (
+        <button
+          key={currentFilter}
+          onClick={() => setFilter(currentFilter)}
+          className={`filters__button ${
+            filter === currentFilter ? "filters__button--active" : ""
+          }`}
+        >
+          {currentFilter}
+        </button>
+      ))}
     </div>
   );
 };

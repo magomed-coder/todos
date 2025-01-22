@@ -188,10 +188,14 @@ button:hover {
   column-gap: var(--spacing-small);
 }
 
-.filters__button:hover {
+.filters__button {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-transform: uppercase;
+}
+
+.filters__button:hover {
   border-color: var(--color-hover);
 }
 
