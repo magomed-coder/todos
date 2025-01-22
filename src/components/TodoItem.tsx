@@ -54,7 +54,11 @@ export const TodoItem: React.FC<TodoItemProps> = ({
         </div>
       )}
 
-      <button className="todo-item__delete" onClick={handleDelete}>
+      <button
+        className="todo-item__delete"
+        onClick={handleDelete}
+        data-testid="delete-button"
+      >
         <TrashIcon />
       </button>
     </li>

@@ -14,6 +14,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     <div
       onClick={onClick}
       className={`todo-item__checkbox ${checked ? "checked" : ""}`}
+      data-testid="checkbox-button"
     >
       {checked && <CheckIcon />}
     </div>
