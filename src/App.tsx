@@ -47,7 +47,7 @@ function App() {
   }, []);
 
   const clearTodos = useCallback(() => {
-    setTodos([]);
+    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed));
   }, []);
 
   const renameToDo = useCallback((id: string, newText: string): void => {
@@ -75,7 +75,7 @@ function App() {
     () => todos.filter((todo) => !todo.completed).length,
     [todos]
   );
-  const isEmpty = todos.length === 0;
+  const isEmpty = todos.filter((todo) => todo.completed).length === 0;
 
   return (
     <main className="todos">

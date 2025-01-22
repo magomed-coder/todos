@@ -22,6 +22,7 @@ export const Filters: React.FC<FiltersProps> = React.memo(
             key={currentFilter}
             onClick={() => setFilter(currentFilter)}
             className={getButtonClass(currentFilter)}
+            data-testid={currentFilter}
           >
             {currentFilter}
           </button>

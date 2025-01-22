@@ -18,7 +18,7 @@ export const TodoAddForm: React.FC<TodoAddFormProps> = memo(({ onAdd }) => {
 
   return (
     <form className="task-form todo_padding" onSubmit={handleSubmit}>
-      <button className="task-form__add" type="submit">
+      <button className="task-form__add" type="submit" aria-label="Add Todo">
         <AddIcon />
       </button>
       <input
