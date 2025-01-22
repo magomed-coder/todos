@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { TodoAddForm } from "./components/TaskForm";
+import { TodoAddForm } from "./components/TodoAddForm";
 import { TodoList } from "./components/TodoList";
-import { Footer } from "./components/Footer";
+import { ClearButton, Footer, TodoCount } from "./components/Footer";
+import { Filters } from "./components/Filters";
 
 export interface Todo {
   id: string;
@@ -13,52 +14,51 @@ export interface Todo {
 export type ToDoStatus = "all" | "completed" | "active";
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<ToDoStatus>("all");
 
-  useEffect(() => {
+  const [todos, setTodos] = useState<Todo[]>(() => {
     const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
-    }
-  }, []);
+    if (storedTodos) return JSON.parse(storedTodos);
+    return [];
+  });
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  const addTodo = (text: string) => {
+  const addTodo = useCallback((text: string) => {
     if (text.trim().length === 0) return;
+    setTodos((prevTodos) => [
+      ...prevTodos,
+      { id: Date.now().toString(), text, completed: false },
+    ]);
+  }, []);
 
-    setTodos([...todos, { id: Date.now().toString(), text, completed: false }]);
-  };
+  const deleteTodo = useCallback((id: string) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  }, []);
 
-  const deleteTodo = (id: string) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
-  };
-
-  const toggleTodo = (id: string) => {
-    setTodos(
-      todos.map((todo) =>
+  const toggleTodo = useCallback((id: string) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
-  };
+  }, []);
 
-  const clearTodos = () => {
+  const clearTodos = useCallback(() => {
     setTodos([]);
-  };
+  }, []);
 
-  function renameToDo(id: string, newText: string): void {
+  const renameToDo = useCallback((id: string, newText: string): void => {
     setTodos((prev) => {
-      const newTasks = [...prev];
-      const taskIndex = newTasks.findIndex((task) => task.id === id);
-      if (taskIndex !== -1) {
-        newTasks[taskIndex].text = newText;
-      }
-      return newTasks;
+      const index = prev.findIndex((todo) => todo.id === id);
+      if (index === -1) return prev;
+      const updatedTodos = [...prev];
+      updatedTodos[index] = { ...updatedTodos[index], text: newText };
+      return updatedTodos;
     });
-  }
+  }, []);
 
   const filteredTodos = useMemo(() => {
     switch (filter) {
@@ -91,13 +91,14 @@ function App() {
           onRename={renameToDo}
         />
 
-        <Footer
-          filter={filter}
-          setFilter={setFilter}
-          uncompletedTodoCount={uncompletedTodoCount}
-          isEmpty={isEmpty}
-          clearTodos={clearTodos}
-        />
+        <Footer>
+          <TodoCount
+            uncompletedTodoCount={uncompletedTodoCount}
+            isEmpty={isEmpty}
+          />
+          <Filters filter={filter} setFilter={setFilter} />
+          <ClearButton isEmpty={isEmpty} clearTodos={clearTodos} />
+        </Footer>
       </div>
     </main>
   );

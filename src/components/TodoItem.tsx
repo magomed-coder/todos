@@ -22,8 +22,8 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   const handleDelete = () => {
     setIsRemoving(true);
     setTimeout(() => {
-      deleteTodo(todo.id); // Удаление элемента после завершения анимации
-    }, 350); // Время, равное продолжительности анимации fadeOut
+      deleteTodo(todo.id);
+    }, 350);
   };
 
   return (
@@ -31,7 +31,10 @@ export const TodoItem: React.FC<TodoItemProps> = ({
       <Checkbox checked={todo.completed} onClick={() => toggleTodo(todo.id)} />
 
       {!editMode ? (
-        <div className="todo-text" onClick={() => setEditMode((prev) => !prev)}>
+        <div
+          className={`todo-text  ${todo.completed ? "done" : ""}`}
+          onClick={() => setEditMode((prev) => !prev)}
+        >
           <span>{todo.text}</span>
         </div>
       ) : (

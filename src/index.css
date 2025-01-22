@@ -163,6 +163,32 @@ button:hover {
   font-weight: var(--font-weight-regular);
 }
 
+.todo-item span:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-checkbox-hover);
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  transform: translateY(50%);
+  transition: width 0.1s linear, opacity 0.1 linear;
+}
+
+.todo-item span {
+  position: relative;
+}
+
+.todo-item .done span {
+  width: fit-content;
+  opacity: 0.5;
+}
+
+.todo-item .done span:before {
+  width: 110%;
+}
+
 .todo-item__delete {
   background: none;
   border: none;
